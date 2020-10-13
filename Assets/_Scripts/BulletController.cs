@@ -9,7 +9,7 @@ public class BulletController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameController = FindObjectOfType<GameController>();
     }
 
     // Update is called once per frame
@@ -24,8 +24,6 @@ public class BulletController : MonoBehaviour
     {
         if (transform.position.y > 5.0f)
         {
-            //Debug.Log("Moving Bullet" + gameObject.name);
-            //Debug.Log("Dummy: " + gameController.GetDummy());
             gameController.ReturnBullet(gameObject);
         }
     }

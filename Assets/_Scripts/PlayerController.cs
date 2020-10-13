@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         _CheckBounds();
 
         //Fire
-        if (Time.frameCount % 30 == 0)
+        if (Time.frameCount % 30 == 0 && gameController.HasBullets())
         {
             gameController.GetBullet(transform.position);
         }

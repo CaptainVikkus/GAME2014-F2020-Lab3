@@ -11,8 +11,7 @@ public class GameController : MonoBehaviour
     public GameObject bullet;
     public int maxBullets;
 
-    private Queue<GameObject> bullets = new Queue<GameObject>();
-    private Queue<int> dummy = new Queue<int>();
+    private Queue<GameObject> bullets;
     private bool hasDeadZone = false;
 
     void Start()
@@ -46,12 +45,14 @@ public class GameController : MonoBehaviour
 
     private void _BuildBulletPool()
     {
+        bullets = new Queue<GameObject>();
+
         for (int count = 0; count < maxBullets; count++)
         {
             GameObject tempBullet = Instantiate(bullet);
             tempBullet.SetActive(false);
+            tempBullet.transform.parent = transform;
             bullets.Enqueue(tempBullet);
-            dummy.Enqueue(Random.Range(0, 20));
         }
     }
     
@@ -64,20 +65,14 @@ public class GameController : MonoBehaviour
         return newBullet;
     }
 
+    public bool HasBullets()
+    {
+        return bullets.Count > 0;
+    }
+
     public void ReturnBullet(GameObject mBullet)
     {
         mBullet.SetActive(false);
         bullets.Enqueue(mBullet);
-    }
-
-    public int GetDummy()
-    {
-        return dummy.Dequeue();
-    }
-
-    public void ReturnDummy(int i)
-    {
-        dummy.Enqueue(i);
-        Debug.Log("Dummy: " + i);
     }
 }
